@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Dashboard - Care Hospital</title>
+    <link rel="stylesheet" href="css/dashboard_sty.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Care Hospital - Dashboard</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="doctors.html">Doctors</a></li>
+                    <li><a href="opd_schedule.html">OPD Schedule</a></li>
+                    <li><a href="facilities.html">Facilities</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="overview">
+            <div class="dashboard-card">
+                <h3>Total Patients</h3>
+                <p id="total-patients">Loading...</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Total Doctors</h3>
+                <p id="total-doctors">Loading...</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Upcoming Appointments</h3>
+                <p id="upcoming-appointments">Loading...</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Recent Activities</h3>
+                <ul id="recent-activities">
+                    <!-- Dynamic recent activities will be loaded here -->
+                </ul>
+            </div>
+        </section>
+
+        <section id="doctors-info">
+            <h2>Our Doctors</h2>
+            <div class="doctor-card">
+                <img src="images/doctor1.jpeg" alt="Dr. John Doe">
+                <h3>Dr. John Doe</h3>
+                <p>Cardiologist</p>
+            </div>
+            <div class="doctor-card">
+                <img src="images/doctor2.png" alt="Dr. Jane Smith">
+                <h3>Dr. Jane Smith</h3>
+                <p>Neurologist</p>
+            </div>
+            <a href="doctors.html" class="btn-primary">View All Doctors</a>
+        </section>
+
+        <section id="appointments">
+            <h2>Manage Appointments</h2>
+            <div class="appointment-card">
+                <h3>Upcoming Appointments</h3>
+                <p>View, manage, and schedule appointments for patients.</p>
+                <a href="appointments.html" class="btn-primary">View Appointments</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Care Hospital | Follow us: 
+            <a href="#"><img src="images/facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="images/twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+        </p>
+    </footer>
+
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>
