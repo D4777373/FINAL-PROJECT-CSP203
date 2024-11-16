@@ -1,7 +1,4 @@
--- init.sql
-
--- Create Users Table
-CREATE TABLE IF NOT EXISTS users (
+ CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -9,7 +6,6 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create Doctors Table
 CREATE TABLE IF NOT EXISTS doctors (
     doctor_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -18,7 +14,6 @@ CREATE TABLE IF NOT EXISTS doctors (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create Appointments Table
 CREATE TABLE IF NOT EXISTS appointments (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -30,7 +25,6 @@ CREATE TABLE IF NOT EXISTS appointments (
     FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id) ON DELETE CASCADE
 );
 
--- Create Prescriptions Table
 CREATE TABLE IF NOT EXISTS prescriptions (
     prescription_id INT AUTO_INCREMENT PRIMARY KEY,
     appointment_id INT NOT NULL,
