@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Appointment - Care Hospital</title>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="css/appointment_sty.css">
+</head>
+<body>
+
+    <header>
+        <h1>Book an Appointment</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="doctors.html">Doctors</a></li>
+                <li><a href="opd_schedule.html">OPD Schedule</a></li>
+                <li><a href="facilities.html">Facilities</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Appointment Form Section -->
+        <section id="appointment-form">
+            <h2>Schedule Your Appointment</h2>
+            <form action="submit_appointment.php" method="POST">
+                <div class="input-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="doctor">Select Doctor</label>
+                    <select id="doctor" name="doctor" required>
+                        <option value="">-- Select Doctor --</option>
+                        <option value="Dr. John Doe">Dr. John Doe - Cardiologist</option>
+                        <option value="Dr. Jane Smith">Dr. Jane Smith - Neurologist</option>
+                        <option value="Dr. Emma Brown">Dr. Emma Brown - Surgeon</option>
+                        <option value="Dr. Mike Davis">Dr. Mike Davis - Pediatrician</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="appointment-date">Select Date</label>
+                    <input type="date" id="appointment-date" name="appointment_date" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="appointment-time">Select Time</label>
+                    <input type="time" id="appointment-time" name="appointment_time" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="message">Additional Information</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Write any additional notes (e.g., symptoms, medical history)" required></textarea>
+                </div>
+
+                <button type="submit">Book Appointment</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Care Hospital | Follow us: 
+            <a href="#"><img src="images/facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="images/twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+        </p>
+    </footer>
+
+</body>
+</html>
