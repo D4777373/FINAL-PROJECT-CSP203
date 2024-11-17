@@ -673,5 +673,13 @@ footer {
 footer p {
     font-size: 1em;
 }
+/* Style for the error message */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
 /* Reset default styles */
 >>>>>>> 36fb6e1 (Clean up and add necessary files)
