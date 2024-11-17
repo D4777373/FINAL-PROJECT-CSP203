@@ -1,25 +1,15 @@
 <?php
-// Database configuration
-define('DB_SERVER', 'localhost');         // MySQL server
-define('DB_USERNAME', 'root');            // MySQL username
-define('DB_PASSWORD', 'Dipanjan@2004');   // MySQL root password
-define('DB_DATABASE', 'healthcare_management'); // Your database name
+// db.php - Database connection
+$servername = "localhost";   // Change this if your database is on a different server
+$username = "root";          // Change this if you're using a different username
+$password = "";              // Change this if you're using a password
+$dbname = "appointment_system"; // The name of your database
 
-try {
-    // Create a new PDO instance
-    $pdo = new PDO(
-        'mysql:host=' . DB_SERVER . ';dbname=' . DB_DATABASE, 
-        DB_USERNAME, 
-        DB_PASSWORD
-    );
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Set the PDO error mode to exception for better error handling
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Test the connection (optional)
-    // echo "Database connected successfully.";
-} catch (PDOException $e) {
-    // Handle connection error
-    die("ERROR: Could not connect. " . $e->getMessage());
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>
