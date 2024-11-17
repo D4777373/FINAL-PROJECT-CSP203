@@ -1,60 +1,70 @@
-<?php
-// Include the database connection
-include_once('../config/db.php');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Appointment - Care Hospital</title>
+    <!-- Link to external CSS for styling -->
+    <link rel="stylesheet" href="\\wsl.localhost\Ubuntu-22.04\home\codebind\FINAL-PROJECT-CSP203\assets\css\cancel_appointment.css"> <!-- Link to your shared CSS file -->
+</head>
+<body>
 
-// Start the session
-session_start();
+    <header>
+        <h1>Cancel Your Appointment</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="doctors.html">Doctors</a></li>
+                <li><a href="opd_schedule.html">OPD Schedule</a></li>
+                <li><a href="facilities.html">Facilities</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
+                <li><a href="cancel_appointment.html">Cancel Appointment</a></li>
+            </ul>
+        </nav>
+    </header>
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $appointmentId = $_POST['appointmentId'];
-    $patientName = $_POST['patientName'];
-    $reason = isset($_POST['reason']) ? $_POST['reason'] : null;
+    <main>
+        <!-- Cancel Appointment Form Section -->
+        <section id="cancel-appointment-form">
+            <h2>Cancel Your Appointment</h2>
+            <p>If you need to cancel an existing appointment, please fill out the form below with your appointment details.</p>
 
-    // Ensure user is logged in
-    if (!isset($_SESSION['user_id'])) {
-        // Redirect to login page if not logged in
-        header("Location: login.html");
-        exit();
-    }
+            <!-- Form to handle the cancellation request -->
+            <form action="\\wsl.localhost\Ubuntu-22.04\home\codebind\FINAL-PROJECT-CSP203\controllers\cancel_appointment.php" method="POST">
+                <div class="input-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
 
-    // Get user ID from session
-    $userId = $_SESSION['user_id'];
+                <div class="input-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
 
-    // Check if the appointment belongs to the logged-in user
-    try {
-        // Query to check appointment ownership
-        $checkSql = "SELECT * FROM appointments WHERE appointment_id = :appointmentId AND user_id = :userId";
-        $stmt = $pdo->prepare($checkSql);
-        $stmt->bindParam(':appointmentId', $appointmentId);
-        $stmt->bindParam(':userId', $userId);
-        $stmt->execute();
+                <div class="input-group">
+                    <label for="appointment-id">Appointment ID</label>
+                    <input type="text" id="appointment-id" name="appointment_id" placeholder="Enter your Appointment ID" required>
+                </div>
 
-        $appointment = $stmt->fetch();
+                <div class="input-group">
+                    <label for="reason">Reason for Cancellation</label>
+                    <textarea id="reason" name="reason" rows="4" placeholder="Write your reason for cancellation (optional)"></textarea>
+                </div>
 
-        if (!$appointment) {
-            echo "Error: No appointment found with the provided ID for the logged-in user.";
-            exit();
-        }
+                <button type="submit">Cancel Appointment</button>
+            </form>
+        </section>
+    </main>
 
-        // Update the appointment status to 'cancelled'
-        $updateSql = "UPDATE appointments 
-                      SET status = 'cancelled', cancellation_reason = :reason 
-                      WHERE appointment_id = :appointmentId";
-        $updateStmt = $pdo->prepare($updateSql);
-        $updateStmt->bindParam(':reason', $reason);
-        $updateStmt->bindParam(':appointmentId', $appointmentId);
-        $updateStmt->execute();
+    <footer>
+        <p>&copy; 2024 Care Hospital | Follow us: 
+            <a href="#"><img src="\\wsl.localhost\Ubuntu-22.04\home\codebind\FINAL-PROJECT-CSP203\assets\images\facebook.jpeg" alt="Facebook"></a>
+            <a href="#"><img src="\\wsl.localhost\Ubuntu-22.04\home\codebind\FINAL-PROJECT-CSP203\assets\images\x.jpeg" alt="Twitter"></a>
+            <a href="#"><img src="\\wsl.localhost\Ubuntu-22.04\home\codebind\FINAL-PROJECT-CSP203\assets\images\instagram.png" alt="Instagram"></a>
+        </p>
+    </footer>
 
-        echo "Appointment successfully cancelled.";
-        // Optionally redirect to a confirmation or dashboard page
-        // header("Location: dashboard.html");
-    } catch (PDOException $e) {
-        echo "Error: Unable to cancel the appointment. " . $e->getMessage();
-    }
-} else {
-    echo "Invalid request.";
-}
-?>
-
+</body>
+</html>
