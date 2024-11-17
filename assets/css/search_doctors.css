@@ -1,0 +1,86 @@
+/* Search Doctors Page Styles */
+#search-doctors {
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#search-doctors h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.search-container input,
+.search-container select {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-container input:focus,
+.search-container select:focus {
+    border-color: #3498db;
+}
+
+.doctor-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.doctor-card {
+    background-color: #f8f8f8;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none; /* Hide by default until search matches */
+}
+
+.doctor-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.doctor-card h3 {
+    font-size: 20px;
+    color: #333;
+}
+
+.doctor-card p {
+    font-size: 14px;
+    color: #777;
+}
+
+.doctor-card p strong {
+    color: #3498db;
+}
+
+@media (max-width: 768px) {
+    #search-doctors {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .doctor-card {
+        width: 200px;
+    }
+}
