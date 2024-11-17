@@ -1,40 +1,34 @@
- <?php
+<?php
 // Include the database connection
-include_once('../config/db.php');
-
+include('db.php');
 session_start();
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the form data
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Sanitize user inputs
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    // Prepare and execute the SQL query to get the user
-    $sql = "SELECT * FROM users WHERE username = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$username]);
-    $user = $stmt->fetch();
+    // Query to find the user
+    $query = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $query);
 
-    // Check if user exists and the password matches
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['username'] = $user['username']; // Store username in session
-        
-        // Redirect to the dashboard or a page after login
-        header("Location: ../dashboard.php");
-        exit();  // Ensure no further code is executed after redirection
+    if (mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
+        // Verify the password
+        if (password_verify($password, $user['password'])) {
+            // Start a session and store user data
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
+            // Redirect to the dashboard
+            header("Location: dashboard.html");
+        } else {
+            echo "Invalid password.";
+        }
     } else {
-        // If login fails, display error message
-        $error_message = "Invalid credentials.";
+        echo "No user found with that email.";
     }
+
+    mysqli_close($conn);
 }
 ?>
-
-<!-- The login form is included here -->
-<form method="POST" action="">
-    Username: <input type="text" name="username" required><br>
-    Password: <input type="password" name="password" required><br>
-    <button type="submit">Login</button>
-</form>
-
