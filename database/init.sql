@@ -5,10 +5,10 @@
     password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE appointments (
+ CREATE TABLE appointments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    appointment_date DATETIME NOT NULL,
+    appointment_date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
