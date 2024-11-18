@@ -1,4 +1,8 @@
-<?php
+ <?php
+// Enable error reporting for debugging purposes
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Include the database connection
 include('db.php');
 session_start();
@@ -36,7 +40,9 @@ if (isset($_SESSION['user_id'])) {
 
             // Execute the query
             if ($stmt->execute()) {
-                echo "Appointment booked successfully!";
+                // Redirect to a confirmation page or show a success message
+                header("Location: appointment_confirmation.php"); // Redirect to a confirmation page
+                exit();
             } else {
                 echo "Error: " . $stmt->error;
             }
@@ -56,6 +62,7 @@ if (isset($_SESSION['user_id'])) {
 // Close the database connection
 mysqli_close($conn);
 ?>
+
 
 
 

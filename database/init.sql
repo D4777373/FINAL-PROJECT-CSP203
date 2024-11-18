@@ -5,16 +5,16 @@
     password VARCHAR(255) NOT NULL
 );
 
- CREATE TABLE appointments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+ CREATE TABLE IF NOT EXISTS appointments (
+    appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    doctor VARCHAR(255) NOT NULL,           -- Added doctor field
-    appointment_date DATETIME NOT NULL,      -- Combined date and time in a DATETIME field
-    appointment_time TIME NOT NULL,          -- Added appointment_time field (separate from date)
-    message TEXT,                            -- Added message for additional information
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    doctor_id INT NOT NULL,
+    appointment_date DATETIME NOT NULL,
+    status ENUM('scheduled', 'completed', 'canceled') DEFAULT 'scheduled',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
 );
-
 
 CREATE TABLE prescriptions (
     id INT AUTO_INCREMENT PRIMARY KEY,
