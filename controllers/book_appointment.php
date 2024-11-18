@@ -1,70 +1,46 @@
- <?php
-// Enable error reporting for debugging purposes
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Include the database connection
+<?php
+// Include the database connection file
 include('db.php');
-session_start();
 
-// Check if the user is logged in
-if (isset($_SESSION['user_id'])) {
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $patientName = $_POST['patientName'];
+    $doctor = $_POST['doctor'];
+    $appointmentDate = $_POST['appointmentDate'];
+    $appointmentTime = $_POST['appointmentTime'];
 
-    // Check if the form is submitted
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Sanitize and validate user input
-        $user_id = $_SESSION['user_id']; // Logged in user
-        $name = mysqli_real_escape_string($conn, $_POST['name']);
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-        $doctor_name = mysqli_real_escape_string($conn, $_POST['doctor']);
-        $appointment_date = mysqli_real_escape_string($conn, $_POST['appointment_date']);
-        $appointment_time = mysqli_real_escape_string($conn, $_POST['appointment_time']);
-        $message = mysqli_real_escape_string($conn, $_POST['message']);
+    // Fetch user ID from the 'users' table based on the patient name
+    $userResult = $conn->query("SELECT id FROM users WHERE username = '$patientName'");
+    
+    if ($userResult->num_rows > 0) {
+        $user = $userResult->fetch_assoc();
+        $userId = $user['id'];
+        
+        // Fetch doctor ID from the 'doctors' table based on the doctor name
+        $doctorResult = $conn->query("SELECT id FROM doctors WHERE name = '$doctor'");
+        
+        if ($doctorResult->num_rows > 0) {
+            $doctorData = $doctorResult->fetch_assoc();
+            $doctorId = $doctorData['id'];
+            
+            // Insert the appointment into the 'appointments' table
+            $sql = "INSERT INTO appointments (user_id, doctor_id, appointment_date, status) 
+                    VALUES ('$userId', '$doctorId', '$appointmentDate $appointmentTime', 'scheduled')";
 
-        // Combine date and time into a single DATETIME value
-        $appointment_datetime = $appointment_date . ' ' . $appointment_time;
-
-        // Retrieve the doctor_id based on the selected doctor name
-        $doctor_query = $conn->prepare("SELECT doctor_id FROM doctors WHERE name = ?");
-        $doctor_query->bind_param("s", $doctor_name);
-        $doctor_query->execute();
-        $doctor_query->bind_result($doctor_id);
-        $doctor_query->fetch();
-        $doctor_query->close();
-
-        if ($doctor_id) {
-            // Prepared statement to prevent SQL injection
-            $stmt = $conn->prepare("INSERT INTO appointments (user_id, doctor_id, appointment_date, status, created_at) VALUES (?, ?, ?, 'scheduled', NOW())");
-            $stmt->bind_param("iis", $user_id, $doctor_id, $appointment_datetime);
-
-            // Execute the query
-            if ($stmt->execute()) {
-                // Redirect to a confirmation page or show a success message
-                header("Location: appointment_confirmation.php"); // Redirect to a confirmation page
-                exit();
+            if ($conn->query($sql) === TRUE) {
+                echo "<script>alert('Appointment booked successfully!'); window.location.href = 'appointment_booking.html';</script>";
             } else {
-                echo "Error: " . $stmt->error;
+                echo "Error: " . $sql . "<br>" . $conn->error;
             }
-
-            // Close the prepared statement
-            $stmt->close();
         } else {
-            echo "Selected doctor not found.";
+            echo "Doctor not found.";
         }
+    } else {
+        echo "User not found.";
     }
-} else {
-    // Redirect to login page if the user is not logged in
-    header("Location: login.php");
-    exit();
+
+    // Close the database connection
+    $conn->close();
 }
-
-// Close the database connection
-mysqli_close($conn);
 ?>
-
-
-
-
-
-
